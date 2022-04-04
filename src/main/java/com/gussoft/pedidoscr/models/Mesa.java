@@ -1,10 +1,9 @@
 package com.gussoft.pedidoscr.models;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Mesa {
 
     @Id
@@ -12,11 +11,21 @@ public class Mesa {
     private Integer id;
 
     private String numero;
-    private List<Plato> platos;
     private Double total;
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "id_mozo", nullable = false, foreignKey = @ForeignKey(name = "Fk_idmozo"))
     private Mozo mozo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cliente", nullable = false, foreignKey = @ForeignKey(name = "Fk_idcliente"))
     private Cliente cliente;
+
+    //mesa representa a platos campo mesa
+    @OneToMany(mappedBy = "mesa", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}
+            , fetch = FetchType.LAZY, orphanRemoval = true)// orphan permite reover un item de la lista
+    private List<DetalleMesa> detalles;
 
     public Mesa() {
     }
@@ -37,12 +46,12 @@ public class Mesa {
         this.numero = numero;
     }
 
-    public List<Plato> getPlatos() {
-        return platos;
+    public List<DetalleMesa> getDetalles() {
+        return detalles;
     }
 
-    public void setPlatos(List<Plato> platos) {
-        this.platos = platos;
+    public void setDetalles(List<DetalleMesa> detalles) {
+        this.detalles = detalles;
     }
 
     public Double getTotal() {

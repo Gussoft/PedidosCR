@@ -44,6 +44,6 @@ public class Categoria {
 
 }
 
-enum CategoryName{
-    ENTRADA, PRINCIPAL, ESPECIAL, BEBIDA
-}
+//enum CategoryName{
+//    ENTRADA, PRINCIPAL, ESPECIAL, BEBIDA
+//}

@@ -1,18 +1,21 @@
 package com.gussoft.pedidoscr.models;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
 public class Plato {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
+    private String garrison;
     private String photo;
     private Double price;
-    private Integer amount;
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria", nullable = false, foreignKey = @ForeignKey(name = "Fk_idcategoria"))
     private Categoria categoria;
 
     public Plato() {
@@ -28,6 +31,14 @@ public class Plato {
 
     public String getName() {
         return name;
+    }
+
+    public String getGarrison() {
+        return garrison;
+    }
+
+    public void setGarrison(String garrison) {
+        this.garrison = garrison;
     }
 
     public void setName(String name) {
@@ -48,14 +59,6 @@ public class Plato {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
     }
 
     public Categoria getCategoria() {
